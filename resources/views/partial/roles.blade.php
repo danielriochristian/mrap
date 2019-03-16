@@ -84,11 +84,11 @@
             </div>
             <div class="modal-footer">
 
-              <button type="button" class="btn actionBtn" data-dismiss="modal">
+              <button type="button" class="btn actionBtn btn-sm" data-dismiss="modal">
               <span id="footer_action_button" class="glyphicon"></span>
               </button>
 
-              <button type="button" class="btn btn-warning" data-dismiss="modal">
+              <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">
               <span class="glyphicon glyphicon"></span>close
               </button>
             </div>
@@ -142,22 +142,23 @@
           $('.modal-footer').on('click', '.edit', function() {
             $.ajax({
               type: 'POST',
-              url: 'editPostRoles',
+              url: '/memberarea/editPostRoles',
               data: {
-          '_token': $('input[name=_token]').val(),
+        "_token": "{{ csrf_token() }}",
           'id': $("#fid").val(),
           'namaRule': $('#r').val()
         },
-          success: function(data) {
-                $('.manage' + data.id).replaceWith(" "+
-                "<tr class='manage" + data.id + "'>"+
-                "<td>" + data.id + "</td>"+
-                "<td>" + data.namaRule + "</td>"+
-                "<td> <button class='edit-modal btn btn-primary btn-md' data-id='" +data.id+ "' data-roles='" +data.namaRule+"'> Edit </button>  </td>"+
-                "</tr>");
-              }
+        success: function (data, status) {
+            $('.datatable').DataTable().ajax.reload(null, false);
+        },
+        error: function (request, status, error) {
+            console.log(request.responseJSON);
+            $.each(request.responseJSON.errors, function( index, value ) {
+              alert( value );
             });
-          });
+        }
+      });
+      });
 </script>
 </div>
 @endsection

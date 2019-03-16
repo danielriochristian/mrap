@@ -22,23 +22,23 @@ class AuthController extends Controller
       $this->middleware('auth');
 
   }
-  // public function getRoot() {
-  //   if (Auth::User()->roles_id == 1) {
-  //   return view('home');
-  //   } elseif (Auth::User()->roles_id == 2) {
-  //   return view('workinggroup');
-  // }else {
-  //     return 'hai pengguna! saat ini belom ada view nya karena yg buat males nambahin :V buat logout ketik /logout di akhiran lalu enter';
-  //   }
-  // }
-
   public function getRoot() {
     if (Auth::User()->roles_id == 1) {
-    return redirect('dashboard');
+    return view('home');
     } elseif (Auth::User()->roles_id == 2) {
     return view('workinggroup');
   }else {
       return 'hai pengguna! saat ini belom ada view nya karena yg buat males nambahin :V buat logout ketik /logout di akhiran lalu enter';
     }
   }
+
+  // public function getRoot() {
+  //   if (Auth::User()->roles_id == 1) {
+  //   return redirect('dashboard');
+  //   } elseif (Auth::User()->roles_id == 2) {
+  //   return view('workinggroup');
+  // }else {
+  //     return 'hai pengguna! saat ini belom ada view nya karena yg buat males nambahin :V buat logout ketik /logout di akhiran lalu enter';
+  //   }
+  // }
 }

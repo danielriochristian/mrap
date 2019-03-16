@@ -27,7 +27,7 @@ class LoginController extends Controller
         'password' => $request->password
       ]))
     {
-      return redirect('dashboard')->with('status', 'Anda Telah berhasil login!');
+      return redirect('/memberarea/dashboard')->with('status', 'Anda Telah berhasil login!');
     }
     else {
       return Redirect::back()->withErrors(['Password atau email anda salah!']);

@@ -131,7 +131,7 @@
 
 
 
- <!-- <div class="footer-copyright-area">
+ <div class="footer-copyright-area">
      <div class="container">
          <div class="row" >
              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
@@ -142,11 +142,11 @@
              </div>
          </div>
      </div>
- </div> -->
+ </div>
 
- <div class="footer">
+ <!-- <div class="footer">
    Copyright © 2019
-. All rights reserved. Design by <a href="https://instagram/danielriochristian">Mr Arrogant</a>.</div>
+. All rights reserved. Design by <a href="https://instagram/danielriochristian">Mr Arrogant</a>.</div> -->
 
 
  <script src="{{url('js/vendor/jquery-1.12.4.min.js')}}"></script>

@@ -1,7 +1,7 @@
 <?php
 Route::get('memberarea/login_admin', ['as' => 'login', 'uses' => 'LoginController@index']);
 // Route::get('/memberarea/login_admin','LoginController@index');
-Route::get('dashboard','AuthController@getRoot');
+Route::get('/memberarea/dashboard','AuthController@getRoot');
 
 Route::post('/postLogin','LoginController@postLogin');
 // Route::get('/logout','LogoutController@Logout');
@@ -16,11 +16,13 @@ Route::POST('/memberarea/deletePost','ManageAdminController@deletePost');
 
 Route::get('user/json', 'ManageAdminController@userdatatb')->name('user/json');
 Route::get('role/json', 'RolesController@manageroletb')->name('role/json');
+
 Route::get('/logout','LogoutController@Logout');
 //route admin
-Route::get('/memberarea/workinggroup/tax','TaxController@index');
+Route::get('/memberarea/workinggroup/tax','TaxController@showDocument');
 
 Route::get('/memberarea/roles','RolesController@index');
-Route::POST('editPostRoles','ManageRolesController@editPost');
-Route::get('/',function(){echo "string";});
+Route::POST('/memberarea/editPostRoles','RolesController@editPost');
+
+Route::post('/memberarea/upload','TaxController@upload');
 ?>

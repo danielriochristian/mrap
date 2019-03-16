@@ -41,4 +41,17 @@ class User extends Authenticatable
       }
       return false;
     }
+    public function division()
+    {
+      return $this->belongsTo(Division::class,'division_id');
+    }
+
+    public function punyaDivisi($namaDivisi)
+    {
+      if($this->division->namaDivisi == $namaDivisi) {
+        return true;
+      }
+      return false;
+    }
+
 }

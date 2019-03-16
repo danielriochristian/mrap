@@ -22,13 +22,35 @@ class TaxController extends Controller
     public function index()
     {
       $taxs = DB::table('data_anggota')->where('division_id','=','1')->get();
-      // var_dump($taxs);die();
+      $taxs = DB::table('tb_upload')->get();
       return view('tax',  ['taxs' => $taxs]);
 
-      // $taxs = Tax::all();
-      //   return view('tax', ['taxs' => $taxs]);
-
-    //   $manage = Tax::all();
-    // return view('partial.tax', compact('manage'));
     }
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('tes')) {
+           $namafile = $request->file('tes')->getClientOriginalName();
+           // $ext = $request->file('tes')->getClientOriginalExtension();
+           $lokasifileskr = '/upload/'.$namafile;
+           //cek jika file sudah ada...
+
+             $destinasi = public_path('/upload');
+             $proses = $request->file('tes')->move($destinasi,$namafile);
+
+             $taxs = new Tax;
+             $taxs->title = $request->title;
+             $taxs->file = $lokasifileskr;
+             $taxs->save();
+             // var_dump($taxs); die();
+
+
+             return redirect('memberarea/workinggroup/tax')->with('message','data berhasil ditambahkan!!');
+
+         }
+       }
+       public function showDocument()
+       {
+         $docs = DB::table('tb_upload')->get();
+         return view('tax',['docs' => $docs]);
+       }
 }

@@ -49,14 +49,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <?php  $no=1; ?>
-                    @foreach ($taxs as $t)
-                    <th scope="row">{{ $no++ }}</th>
-                    <td>{{$t->name}}</td>
-                    <td>{{$t->firm}}</td>
-                    <td>{{$t->email}}</td>
-                  </tr>
-                  @endforeach
+                    
                 </tbody>
               </table>
             </div>
@@ -72,9 +65,25 @@
           </div>
           <div id="collapseTwo" class="panel-collapse collapse">
             <div class="panel-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-              aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
-              craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Name File</th>
+                    <th scope="col">Download</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <?php  $no=1; ?>
+                    @foreach ($docs as $d)
+                    <th scope="row">{{ $no++ }}</th>
+                    <td>{{$d->title}}</td>
+                    <td> download </td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -88,9 +97,24 @@
           </div>
           <div id="collapseThree" class="panel-collapse collapse">
             <div class="panel-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-              aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
-              craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              <form action="/memberarea/upload" enctype="multipart/form-data" method="post">
+                  {{ csrf_field() }}
+
+                  <div class="form-group">
+                      <label for="email">Name File:</label>
+                      <input type="text" class="form-control"  id="title" name="title">
+                  </div>
+                  <div class="form-group">
+                      <label for="email">File:</label>
+                      <input type="file" class="form-control-file"  id="tes" name="tes">
+                  </div>
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-sm btn-primary" id="add">Submit</button>
+                      <button type="reset" class="btn btn-sm btn-danger">Cancel</button>
+                  </div>
+              </form>
+          </div>
+
             </div>
           </div>
         </div>
