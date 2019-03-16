@@ -1,4 +1,4 @@
-@extends('admin.superadmin')
+@extends('Admin.superAdmin')
 @section('labeluser')
 
 <div class="row">
@@ -35,10 +35,11 @@
           <table id="contoh" class="table table-bordered table-hover datatable">
             <thead>
                 <tr>
-                    <th>id</th>
-                    <th>nama</th>
-                    <th>email</th>
-                    <th>roles</th>
+                    <th>Id</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Division</th>
                     <th colspan="10%">Action</th>
                 </tr>
             </thead>
@@ -74,7 +75,19 @@
           <div class="col-sm-10">
           <select class="form-control" id="role" name="role" required>
           <option value="1">Super Admin</option>
-          <option value="2">Manager</option>
+          <option value="2">Admin</option>
+          </select>
+          <p class="error text-center alert alert-danger hidden"></p>
+          </div>
+          </div>
+          <div class="form-group">
+          <label class="control-label col-sm-2" for="division">Division</label>
+          <div class="col-sm-10">
+          <select class="form-control" id="di" name="di" required>
+          <option value="Tax">Tax</option>
+          <option value="Payroll, Accounting & Outsourcing">Payroll, Accounting & Outsourcing</option>
+          <option value="Corporate Finance">Corporate Finance</option>
+          <option value="Audit">Audit</option>
           </select>
           <p class="error text-center alert alert-danger hidden"></p>
           </div>
@@ -87,15 +100,6 @@
           </div>
           </div>
           <div class="form-group">
-          {{--<label class="control-label col-sm-2" for="roles">Roles</label>
-           <div class="col-sm-10">
-              <input type="text" class="form-control" id="roles" name="roles" placeholder="Your Password Here" required>
-            <select class="form-control" name="roles" id="roles" required>
-              <option value="1">Manager</option>
-              <option value="2">Super Admin</option>
-            </select>
-          <p class="error text-center alert alert-danger hidden"></p>
-          </div>  --}}
           </div>
           </form>
           </div>
@@ -106,35 +110,6 @@
           <button class="btn btn-warning btn-sm" type="button" data-dismiss="modal">
           <span class="glyphicon glyphicon-remobe"></span>Close
           </button>
-          </div>
-          </div>
-          </div>
-        </div>
-            {{-- Modal Form Show POST --}}
-        <div id="show" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-          <div class="modal-content">
-          <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"></h4>
-          </div>
-          <div class="modal-body">
-          <div class="form-group">
-          <label for="">ID  : </label>
-          <b id="i"/>
-          </div>
-          <div class="form-group">
-          <label for="">Name  : </label>
-          <b id="nm"/>
-          </div>
-          <div class="form-group">
-          <label for="">Email : </label>
-          <b id="em"/>
-          </div>
-          <div class="form-group">
-          <label for="">Roles :</label>
-          <b id="rl"/>
-          </div>
           </div>
           </div>
           </div>
@@ -177,17 +152,30 @@
           <div class="col-sm-10">
           <select class="form-control" name="roles" id="r">
             <option value="1">Super Admin</option>
-            <option value="2">Manager</option>
+            <option value="2">Admin</option>
           </select>
           </div>
           </div>
 
           <div class="form-group">
+          <label class="control-label col-sm-2" for="division">Division</label>
+          <div class="col-sm-10">
+          <select class="form-control" id="d" name="d" required>
+          <option value="Tax">Tax</option>
+          <option value="Payroll, Accounting & Outsourcing">Payroll, Accounting & Outsourcing</option>
+          <option value="Corporate Finance">Corporate Finance</option>
+          <option value="Audit">Audit</option>
+          </select>
+          <p class="error text-center alert alert-danger hidden"></p>
+          </div>
+          </div>
+
+          <!-- <div class="form-group">
           <label class="control-label col-sm-2"for="password">Password</label>
           <div class="col-sm-10">
           <input type="password" class="form-control" id="ps"></textarea>
           </div>
-          </div>
+          </div> -->
           </form>
           {{-- Form Delete Post --}}
           <div class="deleteContent">
@@ -234,7 +222,8 @@
               {data: 'id', name: 'id'},
               {data: 'name', name: 'name'},
               {data: 'email', name: 'email'},
-              {data: 'Roles', name: 'Roles'},
+              {data: 'Roles', name: 'Roles' , orderable: false, searchable: false},
+              {data: 'division', name: 'division'},
               {data: 'action', name: 'action', orderable: false, searchable: false},
           ]
       });
@@ -253,14 +242,16 @@
             "_token": "{{ csrf_token() }}",
             'name': $('input[name=name]').val(),
             'email': $('input[name=email]').val(),
-            'password': $('input[name=password]').val(),
-            'roles_id': $('#role').val()
+            'roles_id': $('#role').val(),
+            'division': $('#di').val(),
+            'password': $('input[name=password]').val()
           },
           success: function (data, status) {
               $('#create').modal('hide');
               $("#name").val(''),
               $("#password").val(''),
               $("#role").val(''),
+              $("#di").val(''),
               $('.datatable').DataTable().ajax.reload(null, false);
           },
           error: function (request, status, error) {
@@ -287,6 +278,7 @@
     $('#e').val($(this).data('email'));
     $('#r').val($(this).data('roles'));
     $('#ps').val($(this).data('password'));
+    $('#d').val($(this).data('division'));
     $('#myModal').modal('show');
     });
 // nama field
@@ -300,7 +292,8 @@
     'name': $('#n').val(),
     'email': $('#e').val(),
     'roles_id': $('#r').val(),
-    'password': $('#ps').val()
+    'division': $('#d').val()
+    // 'password': $('#ps').val()
   },
   success: function (data, status) {
       $('.datatable').DataTable().ajax.reload(null, false);

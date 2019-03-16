@@ -27,7 +27,7 @@
           <table id="contoh" class="table table-bordered table-hover datatable">
             <thead>
                 <tr>
-                    <th>id</th>
+                    <th>Id</th>
                     <th>Roles</th>
                     <th colspan="10%">Action</th>
                 </tr>

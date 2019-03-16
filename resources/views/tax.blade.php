@@ -2,31 +2,28 @@
 @section('labeltax')
 
 <div class="row">
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-  <div class="breadcomb-wp">
-    <div class="breadcomb-icon">
-      <i class="notika-icon notika-windows"></i>
-    </div>
-    <div class="breadcomb-ctn">
-      <h2>Tax</h2>
-      <p>Welcome to MRAP <span class="bread-ntd">Admin</span></p>
+  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <div class="breadcomb-wp">
+      <div class="breadcomb-icon">
+        <i class="notika-icon notika-windows"></i>
+      </div>
+      <div class="breadcomb-ctn">
+        <h2>Tax</h2>
+        <p>Welcome to MRAP <span class="bread-ntd">Admin</span></p>
+      </div>
     </div>
   </div>
-</div>
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
-  <div class="breadcomb-report">
-    <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="notika-icon notika-sent"></i></button>
+  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+    <div class="breadcomb-report">
+      <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="notika-icon notika-sent"></i></button>
+    </div>
   </div>
-</div>
 </div>
 @endsection
 @section('tax')
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="data-table-list">
-
-
-
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -49,7 +46,15 @@
                 </thead>
                 <tbody>
                   <tr>
-                    
+                    <?php  $no=1; ?>
+                    @foreach ($taxs as $t)
+                    <th scope="row">{{ $no++ }}</th>
+                    <td>{{$t->name}}</td>
+                    <td>{{$t->firm}}</td>
+                    <td>{{$t->email}}</td>
+                  </tr>
+                  @endforeach
+                </tbody>
                 </tbody>
               </table>
             </div>
@@ -70,15 +75,17 @@
                   <tr>
                     <th scope="col">No.</th>
                     <th scope="col">Name File</th>
+                    <th scope="col">Uploaded by</th>
                     <th scope="col">Download</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <?php  $no=1; ?>
-                    @foreach ($docs as $d)
+                    @foreach ($taxs as $t)
                     <th scope="row">{{ $no++ }}</th>
-                    <td>{{$d->title}}</td>
+                    <td>{{$t->title}}</td>
+                    <td>{{$t->uploaded_by}}</td>
                     <td> download </td>
                   </tr>
                   @endforeach
@@ -98,31 +105,50 @@
           <div id="collapseThree" class="panel-collapse collapse">
             <div class="panel-body">
               <form action="/memberarea/upload" enctype="multipart/form-data" method="post">
-                  {{ csrf_field() }}
+                {{ csrf_field() }}
 
-                  <div class="form-group">
-                      <label for="email">Name File:</label>
-                      <input type="text" class="form-control"  id="title" name="title">
-                  </div>
-                  <div class="form-group">
-                      <label for="email">File:</label>
-                      <input type="file" class="form-control-file"  id="tes" name="tes">
-                  </div>
-                  <div class="form-group">
-                      <button type="submit" class="btn btn-sm btn-primary" id="add">Submit</button>
-                      <button type="reset" class="btn btn-sm btn-danger">Cancel</button>
-                  </div>
+                <div class="form-group">
+                  <p class="font-italic-sm">*only admin in Division Tax can upload.</p>
+                  <label for="email">Name File:</label>
+                  <input type="text" class="form-control" id="title" name="title">
+                  @php
+                  $cekid = Auth::User()->name;
+                  @endphp
+                  <input type="hidden" class="form-control" id="id_admin" name="id_admin" value="<?php echo ($cekid); ?>">
+                </div>
+                <div class="form-group">
+                  <label for="email">File:</label>
+                  @php
+                  $cekdivisi = Auth::User()->division;
+                  if($cekdivisi=='Tax'){
+                    echo '<input type="file" class="form-control-file" id="tes" name="tes">';
+                  }else{
+                    echo '<input type="file" class="form-control-file" id="tes" name="tes" disabled>';
+                  }
+                  @endphp
+                </div>
+                <div class="form-group">
+                  @php
+                  $cekdivisi = Auth::User()->division;
+                  if($cekdivisi=='Tax'){
+                    echo '<button type="submit" class="btn btn-sm btn-primary" id="add">Submit</button>';
+                  }else{
+                    echo '<button type="submit" class="btn btn-sm btn-primary" id="add" disabled>Submit</button>';
+                  }
+                  @endphp
+                  <button type="reset" class="btn btn-sm btn-danger">Cancel</button>
+                </div>
               </form>
-          </div>
-
             </div>
+
           </div>
         </div>
       </div>
+    </div>
 
 
-    </div> <!-- end container -->
-  </div>
+  </div> <!-- end container -->
+</div>
 </div>
 
 <style media="screen">

@@ -19,10 +19,11 @@ Route::get('role/json', 'RolesController@manageroletb')->name('role/json');
 
 Route::get('/logout','LogoutController@Logout');
 //route admin
-Route::get('/memberarea/workinggroup/tax','TaxController@showDocument');
+Route::get('/memberarea/workinggroup/tax','TaxController@index');
 
 Route::get('/memberarea/roles','RolesController@index');
 Route::POST('/memberarea/editPostRoles','RolesController@editPost');
 
 Route::post('/memberarea/upload','TaxController@upload');
+Route::get('/store','TaxController@store');
 ?>

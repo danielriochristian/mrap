@@ -17,6 +17,7 @@ class CreateTableUpload extends Migration
           $table->increments('id');
           $table->string('title');
           $table->string('file');
+          $table->string('uploaded_by');
           $table->rememberToken();
           $table->timestamps();
       });

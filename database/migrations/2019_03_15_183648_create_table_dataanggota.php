@@ -18,6 +18,7 @@ class CreateTableDataanggota extends Migration
           $table->string('name');
           $table->string('email')->unique();
           $table->string('firm');
+          $table->string('division');
           $table->string('api_token')->nullable();
           $table->rememberToken();
           $table->timestamps();
@@ -28,6 +29,7 @@ class CreateTableDataanggota extends Migration
             'name' => 'Daniel Rio Christian',
             'email' => 'daniel41697@gmail.com',
             'firm' => 'PT Asuransi Jiwa Indonesia',
+            'division' => 'Tax',
             'api_token' => ''
         )
     );
@@ -37,9 +39,19 @@ class CreateTableDataanggota extends Migration
           'name' => 'Cecep Budiman',
           'email' => 'c3budiman@gmail.com',
           'firm' => 'PT Asuransi Jiwa Indonesia',
+          'division' => 'Tax',
           'api_token' => ''
       )
   );
+  DB::table('data_anggota')->insert(
+    array(
+        'name' => 'Reza',
+        'email' => 'reza@gmail.com',
+        'firm' => 'PT Asuransi Jiwa Indonesia',
+        'division' => 'Audit',
+        'api_token' => ''
+    )
+);
     }
 
     /**

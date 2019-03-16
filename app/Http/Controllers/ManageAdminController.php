@@ -43,7 +43,9 @@ class ManageAdminController extends Controller
     $manage->name = $request->name;
     $manage->email = $request->email;
     $manage->roles_id = $request->roles_id;
+    $manage->division = $request->division;
     $manage->password = bcrypt($request['password']);
+    // var_dump($manage);die();
     $manage->save();
     return response()->json($manage);
   }
@@ -53,7 +55,8 @@ class ManageAdminController extends Controller
     $manage->name = $request->name;
     $manage->email = $request->email;
     $manage->roles_id = $request->roles_id;
-    $manage->password = bcrypt($request['password']);
+    $manage->division = $request->division;
+    // $manage->password = bcrypt($request['password']);
     $manage->save();
     return response()->json($manage);
     }
@@ -69,14 +72,14 @@ class ManageAdminController extends Controller
               // })
               ->addColumn('action', function ($datatb) {
                   return
-                   '<button data-id="'.$datatb->id.'" data-name="'.$datatb->name.'" data-roles="'.$datatb->roles_id.'" data-email="'.$datatb->email.'"  class="edit-modal btn btn-xs btn-info" type="submit"><i class="fa fa-edit"></i> Edit</button>'
+                   '<button data-id="'.$datatb->id.'" data-name="'.$datatb->name.'" data-roles="'.$datatb->roles_id.'"  data-division="'.$datatb->division.'" data-email="'.$datatb->email.'"   class="edit-modal btn btn-xs btn-info" type="submit"><i class="fa fa-edit"></i> Edit</button>'
                    .'<div style="padding-top:10px"></div>'
-                  .'<button data-id="'.$datatb->id.'" data-name="'.$datatb->name.'" data-roles="'.$datatb->roles_id.'" data-email="'.$datatb->email.'"  class="delete-modal btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i> Delete</button>';
+                  .'<button data-id="'.$datatb->id.'" data-name="'.$datatb->name.'" data-roles="'.$datatb->roles_id.'"  data-division="'.$datatb->division.'" data-email="'.$datatb->email.'"  class="delete-modal btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i> Delete</button>';
               })
               ->addColumn('Roles', function($datatb) {
               return DB::table('roles')->where('id','=',$datatb->roles_id)->first()->namaRule;
             })
-          
+
               ->make(true);
     }
 
